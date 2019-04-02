@@ -1,0 +1,2 @@
+
+#define TRAVIS_BUILD_NUMBER 0
