@@ -4,10 +4,7 @@
 //#include <spdlog/spdlog.h>
 
 int main (int argc, char ** argv){
-        std::cout << "Version number "<<version()<<std::endl;
-	std::cout << "Hello world"<<std::endl;
-//	auto logger = spdlog::stdout_logger_mt("console");
-//	logger->info("version {} was started",version());
-
+        std::cout << "build "<<version()<<std::endl;
+	std::cout << "Hello, World!"<<std::endl;
 	return 0;
 }

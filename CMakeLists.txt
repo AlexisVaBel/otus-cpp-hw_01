@@ -1,13 +1,19 @@
 cmake_minimum_required(VERSION 3.2)
 
+if ($ENV{TRAVIS_BUILD_NUMBER})
+ project(helloworld VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+else ($ENV{TRAVIS_BUILD_NUMBER})
+ project(helloworld VERSION 0.0.1)
+endif ($ENV{TRAVIS_BUILD_NUMBER})
 
-project(cmake VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
-configure_file(version/version.h.in ${PROJECT_SOURCE_DIR}/version/version.h)
+#project(helloworld VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+
+configure_file(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
 
 add_executable(helloworld_cli main.cpp)
 
-add_library (hellowrold version/versionlib.cpp)
+add_library (helloworld version/versionlib.cpp)
 
 
 include_directories ("version")
