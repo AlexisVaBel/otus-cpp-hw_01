@@ -9,24 +9,26 @@ endif ($ENV{TRAVIS_BUILD_NUMBER})
 
 #project(helloworld VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
+
+
 configure_file(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
 
-add_executable(helloworld main.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 
-add_library (helloworld_lib version/versionlib.cpp)
+add_library (${PROJECT_NAME}_lib version/versionlib.cpp)
 
 
 include_directories ("version")
 
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lpthread ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wpedantic -Wextra")
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lpthread ")
 
 
 set(SRC_LIST main.cpp)
 set(SRC_LIST version/versionlib.cpp)
 
-target_link_libraries (helloworld helloworld_lib)
+target_link_libraries (${PROJECT_NAME} ${PROJECT_NAME}_lib)
 
 install (TARGETS helloworld RUNTIME DESTINATION bin)
 
