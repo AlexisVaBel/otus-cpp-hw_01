@@ -7,30 +7,26 @@ else ($ENV{TRAVIS_BUILD_NUMBER})
 endif ($ENV{TRAVIS_BUILD_NUMBER})
 
 
-#project(helloworld VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+include_directories ("version")
 
-
-
-configure_file(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
+configure_file(${PROJECT_SOURCE_DIR}/version/version.h.in ${PROJECT_SOURCE_DIR}/version/version.h)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
-add_library (${PROJECT_NAME}_lib version/versionlib.cpp)
+add_library (${PROJECT_NAME}_lib ${PROJECT_SOURCE_DIR}/version/versionlib.cpp)
 
 
-include_directories ("version")
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
+    COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
+)
 
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wpedantic -Wextra")
-#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lpthread ")
-
-
-set(SRC_LIST main.cpp)
-set(SRC_LIST version/versionlib.cpp)
 
 target_link_libraries (${PROJECT_NAME} ${PROJECT_NAME}_lib)
 
-install (TARGETS helloworld RUNTIME DESTINATION bin)
+install (TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 

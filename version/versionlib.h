@@ -1,5 +1,7 @@
-#pragma once
+#ifndef VERSION_LIB
+#define VERSION_LIB
 
 int version();
 
-#define TRAVIS_BUILD_NUMBER 0
+#endif
+
